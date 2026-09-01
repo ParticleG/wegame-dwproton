@@ -54,6 +54,11 @@ jobs:
           pacman -Syu --noconfirm --needed
           7zip desktop-file-utils git imagemagick namcap shellcheck
 
+      - name: Create unprivileged package builder
+        run: |
+          useradd --create-home builder
+          chown -R builder:builder "$GITHUB_WORKSPACE"
+
       - name: Validate integration files
         run: |
           bash -n wegame-dwproton tests/test-launch-lifecycle.sh tests/test-update-recovery.sh
@@ -61,13 +66,10 @@ jobs:
           desktop-file-validate wegame-dwproton.desktop
           tests/test-launch-lifecycle.sh
           tests/test-update-recovery.sh
-          diff -u .SRCINFO <(makepkg --printsrcinfo)
+          diff -u .SRCINFO <(runuser -u builder -- makepkg --printsrcinfo)
 
       - name: Build package as an unprivileged user
-        run: |
-          useradd --create-home builder
-          chown -R builder:builder "$GITHUB_WORKSPACE"
-          runuser -u builder -- makepkg --cleanbuild --force --nodeps --noconfirm
+        run: runuser -u builder -- makepkg --cleanbuild --force --nodeps --noconfirm
 
       - name: Inspect package
         run: |
