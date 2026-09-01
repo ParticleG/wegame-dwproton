@@ -52,7 +52,7 @@ jobs:
       - name: Install build tools
         run: >-
           pacman -Syu --noconfirm --needed
-          7zip desktop-file-utils git hicolor-icon-theme imagemagick namcap shellcheck
+          7zip desktop-file-utils git hicolor-icon-theme imagemagick namcap python-filelock shellcheck
 
       - name: Create unprivileged package builder
         run: |
