@@ -52,7 +52,7 @@ jobs:
       - name: Install build tools
         run: >-
           pacman -Syu --noconfirm --needed
-          7zip desktop-file-utils git imagemagick namcap shellcheck
+          7zip desktop-file-utils git hicolor-icon-theme imagemagick namcap shellcheck
 
       - name: Create unprivileged package builder
         run: |
@@ -69,7 +69,7 @@ jobs:
           diff -u .SRCINFO <(runuser -u builder -- makepkg --printsrcinfo)
 
       - name: Build package as an unprivileged user
-        run: runuser -u builder -- makepkg --cleanbuild --force --nodeps --noconfirm
+        run: runuser -u builder -- makepkg --cleanbuild --force --syncdeps --noconfirm
 
       - name: Inspect package
         run: |

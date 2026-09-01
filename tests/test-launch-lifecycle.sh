@@ -17,8 +17,9 @@ export XDG_DATA_HOME="$sandbox/data"
 export XDG_STATE_HOME="$sandbox/state"
 export XDG_CACHE_HOME="$sandbox/cache"
 export WEGAME_DWPROTON_SHARE_DIR="$sandbox/share"
-export WEGAME_DWPROTON_PROTON="$sandbox/fake-proton/proton"
+unset WEGAME_DWPROTON_PROTON
 export FAKE_PROTON_LOG="$sandbox/proton.log"
+readonly fake_proton="$XDG_DATA_HOME/lutris/runners/wine/dwproton-test/proton"
 
 readonly compat_data="$XDG_DATA_HOME/wegame-dwproton/compatdata"
 readonly prefix="$compat_data/pfx"
@@ -30,10 +31,10 @@ fail() {
     exit 1
 }
 
-mkdir -p -- "$WEGAME_DWPROTON_SHARE_DIR" "${WEGAME_DWPROTON_PROTON%/*}"
+mkdir -p -- "$WEGAME_DWPROTON_SHARE_DIR" "${fake_proton%/*}"
 printf 'official-installer-placeholder\n' > "$WEGAME_DWPROTON_SHARE_DIR/WeGameMiniLoader.exe"
 
-cat > "$WEGAME_DWPROTON_PROTON" <<'EOF'
+cat > "$fake_proton" <<'EOF'
 #!/usr/bin/bash
 set -euo pipefail
 
@@ -47,7 +48,7 @@ if [[ ${target##*/} == WeGameMiniLoader.exe ]]; then
     printf 'installed-client\n' > "$client"
 fi
 EOF
-chmod 755 "$WEGAME_DWPROTON_PROTON"
+chmod 755 "$fake_proton"
 
 "$launcher"
 [[ -f "$client" ]] || fail 'the first launch did not create the expected client path'
