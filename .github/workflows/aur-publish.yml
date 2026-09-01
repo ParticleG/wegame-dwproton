@@ -61,9 +61,10 @@ jobs:
 
       - name: Validate integration files
         run: |
-          bash -n wegame-dwproton tests/test-launch-lifecycle.sh tests/test-update-recovery.sh
-          shellcheck wegame-dwproton tests/test-launch-lifecycle.sh tests/test-update-recovery.sh
+          bash -n wegame-dwproton tests/test-bundled-runtime.sh tests/test-launch-lifecycle.sh tests/test-update-recovery.sh
+          shellcheck wegame-dwproton tests/test-bundled-runtime.sh tests/test-launch-lifecycle.sh tests/test-update-recovery.sh
           desktop-file-validate wegame-dwproton.desktop
+          tests/test-bundled-runtime.sh
           tests/test-launch-lifecycle.sh
           tests/test-update-recovery.sh
           diff -u .SRCINFO <(runuser -u builder -- makepkg --printsrcinfo)
