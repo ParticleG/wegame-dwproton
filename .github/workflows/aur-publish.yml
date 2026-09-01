@@ -99,15 +99,12 @@ jobs:
           assets: |
             .gitignore
             LICENSE
-            LICENSES
             README.md
-            REUSE.toml
-            tests
             WeGame-EULA.txt
             wegame-dwproton
             wegame-dwproton.desktop
             wegame-dwproton.install
-          post_process: git config core.filemode true && chmod 755 wegame-dwproton tests/test-update-recovery.sh
+          post_process: git config core.filemode true && chmod 755 wegame-dwproton
           commit_username: ParticleG
           commit_email: particle_g@outlook.com
           ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
