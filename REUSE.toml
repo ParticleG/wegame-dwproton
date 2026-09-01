@@ -1,0 +1,20 @@
+version = 1
+SPDX-PackageName = "wegame-dwproton"
+SPDX-PackageSupplier = "ParticleG <particle_g@outlook.com>"
+SPDX-PackageDownloadLocation = "https://github.com/ParticleG/wegame-dwproton"
+
+[[annotations]]
+path = [
+  ".github/workflows/aur-publish.yml",
+  ".gitignore",
+  ".SRCINFO",
+  "LICENSE",
+  "PKGBUILD",
+  "README.md",
+  "WeGame-EULA.txt",
+  "wegame-dwproton.desktop",
+  "wegame-dwproton.install",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 ParticleG"
+SPDX-License-Identifier = "0BSD"
